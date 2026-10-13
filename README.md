@@ -1,223 +1,162 @@
 # Python 網頁爬蟲期中作業
 
- ## 一、期中作業要求
+## 一、期中作業要求
 
- ### 繳交方式
+### 1. 繳交方式
 
- 期中作業需繳交：
+期中作業需繳交以下兩項：
 
- - Word
-- PPT（報告）
+* Word 報告
+* PPT 簡報（口頭報告）
 
- ### Word 報告內容
+### 2. Word 報告內容
 
- Word 必須包含：
+Word 必須包含：
 
- 1. 題目
-2. Python 程式碼
+1. 題目
+2. 完整 Python 程式碼
 3. 程式執行完成截圖
 4. 執行結果截圖
 5. CSV 或其他輸出檔案結果截圖（若題目有要求）
 
 ---
 
- ## 二、爬蟲技術與配分
+## 二、爬蟲技術與配分
 
- ### 要求 1：使用 Requests 抓取資料
-
- - 共 2 題
-- 20 分
-
- ### 要求 2：使用 BeautifulSoup 抓取資料
-
- - 共 2 題
-- 30 分
-
- ### 要求 3：使用 Selenium 抓取動態網站資料
-
- - 共 2 題
-- 50 分
+| 技術要求                  |  題數 |   配分 |
+| --------------------- | --: | ---: |
+| 使用 Requests 抓取資料      | 2 題 | 20 分 |
+| 使用 BeautifulSoup 抓取資料 | 2 題 | 30 分 |
+| 使用 Selenium 抓取動態網站資料  | 2 題 | 50 分 |
 
 ---
 
- # 三、題目
+## 三、題目內容
 
- ## 1.（易）抓取電影資訊
+### 第 1 題（易）：抓取電影資訊
 
- 網址：
+**網址：** http://www.atmovies.com.tw/movie/new/
 
- http://www.atmovies.com.tw/movie/new/
+#### 要求
 
- ### 要求
+抓取本週新片電影資料，包括：
 
- 抓取本週新片電影資料，包括：
-
- - 電影標題
-- 電影內容
-- 片長
-- 電影網址
+* 電影標題
+* 電影內容
+* 片長
+* 電影網址
 
 ---
 
- ## 2.（中）抓取台灣銀行牌告匯率
+### 第 2 題（中）：抓取台灣銀行牌告匯率
 
- 網址：
+**網址：** https://rate.bot.com.tw/xrt?Lang=zh-TW
 
- https://rate.bot.com.tw/xrt?Lang=zh-TW
+#### 要求
 
- ### 要求
-
- 1. 抓取台銀牌價最新掛牌資料。
-2. 將資料存入：
-
-```
-bank.csv
-```
+1. 抓取台銀牌價最新掛牌資料。
+2. 將資料存入 `bank.csv`。
 
 ---
 
- ## 3.（中）抓取政府資料開放平台
+### 第 3 題（中）：抓取政府資料開放平台
 
- 網址：
+**網址：** https://data.gov.tw/
 
- https://data.gov.tw/
+#### 要求
 
- ### 要求
-
- 1. 抓取「健保門診及住院就診人次統計-腸病毒」資料。
-2. 將資料儲存至：
-
-```
-NHI_EnteroviralInfection.csv
-```
+1. 抓取「健保門診及住院就診人次統計－腸病毒」資料。
+2. 將資料儲存至 `NHI_EnteroviralInfection.csv`。
 
 ---
 
- ## 4.（中）抓取博客來書籍資料
+### 第 4 題（中）：抓取博客來書籍資料
 
- 網址：
+**網址：** https://search.books.com.tw/search/query/key/演算法/cat/all
 
- https://search.books.com.tw/search/query/key/{0}/cat/all
+#### 要求
 
- ### 要求
+1. 搜尋關鍵字設定為「演算法」。
+2. 抓取書籍資料。
+3. 將資料存入 `booklist.csv`。
 
- 1. `{0}` 設定為：
+#### CSV 內容
 
-```
-演算法
-```
-
- 2. 抓取書籍資料。
-3. 將資料存入：
-
-```
-booklist.csv
-```
-
- ### CSV 內容
-
- 必須包含：
-
-```
-書名
-網址
-作者
-書價
-```
+* 書名
+* 網址
+* 作者
+* 書價
 
 ---
 
- ## 5.（難）抓取電影票房排行榜
+### 第 5 題（難）：抓取電影票房排行榜
 
- 網址：
+**網址：** http://www.atmovies.com.tw/movie/new/
 
- http://www.atmovies.com.tw/movie/new/
+#### 要求
 
- ### 要求
-
- 1. 按票房排行榜。
+1. 進入票房排行榜。
 2. 列出台北排行榜。
-3. 列出：
-   - 排名
-   - 片名
-   - 票房
+3. 列出排名、片名及票房。
 4. 按下「More」後取得本頁排行。
 5. 本頁共 20 筆資料。
-6. 儲存至：
+6. 儲存至 `Taipei_movies.csv`。
 
-```
-Taipei_movies.csv
-```
+#### CSV 內容
 
- ### CSV 內容
-
-```
-排名
-片名
-本週票房
-累計票房
-```
+* 排名
+* 片名
+* 本週票房
+* 累計票房
 
 ---
 
- ## 6.（難）抓取 NBA 球員資料
+### 第 6 題（難）：抓取 NBA 球員資料
 
- 網址：
+**網址：** https://www.basketball-reference.com/teams/{0}/2024.html
 
- https://www.basketball-reference.com/teams/{0}/2024.html
+#### 要求
 
- ### 要求
+抓取以下三支球隊：
 
- 抓取以下三支球隊：
+* CLE
+* HOU
+* GSW
 
-```
-CLE
-HOU
-GSW
-```
+#### 資料內容
 
- ### 資料內容
+* 球隊
+* 背號
+* 姓名
+* 位置
+* 體重
+* 生日
+* 經驗
+* 大學
 
- 必須包含：
+#### 輸出檔案
 
-```
-球隊
-背號
-姓名
-位置
-體重
-生日
-經驗
-大學
-```
-
- ### 輸出檔案
-
-```
-players.csv
-```
+`players.csv`
 
 ---
 
- ## 7.（難）使用 Google Books API 抓取書籍資料
+### 第 7 題（難）：使用 Google Books API 抓取書籍資料
 
- API：
+**API：** https://www.googleapis.com/books/v1/volumes
 
- https://www.googleapis.com/books/v1/volumes
+#### 要求
 
- ### 要求
+使用以下參數：
 
- 使用以下參數：
-
-```
+```python
 import requests
 
 url = "https://www.googleapis.com/books/v1/volumes"
 
 url_params = {
-    'q': 'Python',
-    'maxResults': 10,
-    'projection': 'lite'
+    "q": "Python",
+    "maxResults": 10,
+    "projection": "lite"
 }
 
 r = requests.get(url, params=url_params)
@@ -225,116 +164,80 @@ r = requests.get(url, params=url_params)
 print(r.json())
 ```
 
- ### 資料要求
-
- 1. 使用 Google Books API。
-2. 將第一頁資料存入：
-
-```
-pythonbook.csv
-```
-
- 3. 進入下一頁。
-4. 再將第二頁資料存入：
-
-```
-pythonbook.csv
-```
-
- 5. 共取得兩頁資料。
+1. 使用 Google Books API。
+2. 將第一頁資料存入 `pythonbook.csv`。
+3. 進入下一頁。
+4. 將第二頁資料也存入 `pythonbook.csv`。
+5. 共取得兩頁資料。
 
 ---
 
- ## 8.（難）抓取近期上映強片電影
+### 第 8 題（難）：抓取近期上映強片電影
 
- 網址：
+**網址：** http://www.atmovies.com.tw/movie/new/
 
- http://www.atmovies.com.tw/movie/new/
+#### 要求
 
- ### 要求
-
- 1. 列出所有近期上映強片電影。
-2. 列出：
-   - 電影名稱
-   - 上映時間
-   - 連結網址
-3. 將資料儲存至：
-
-```
-movies.csv
-```
+1. 列出所有近期上映強片電影。
+2. 列出電影名稱、上映時間及連結網址。
+3. 將資料儲存至 `movies.csv`。
 
 ---
 
- ## 9.（中）使用 Selenium 抓取 Google 新聞
+### 第 9 題（中）：使用 Selenium 抓取 Google 新聞
 
- 網站：
+**網站：** Google 新聞
 
- Google 新聞
+#### 要求
 
- ### 要求
+使用 Selenium 完成以下需求。
 
- 使用 Selenium 完成以下需求。
+#### 焦點提要
 
- ### 焦點提要
+列出：
 
- 列出：
+* 焦點新聞
+* 地方新聞
 
-```
-焦點新聞
-地方新聞
-```
+#### 焦點新聞
 
- ### 焦點新聞
+列出所有包含的新聞標題。
 
- 列出所有包含的新聞標題。
+#### 地方新聞
 
- ### 地方新聞
+列出所有包含的新聞標題。
 
- 列出所有包含的新聞標題。
+#### 您的主題
 
- ### 您的主題
+列出所有包含的新聞標題。
 
- 列出所有包含的新聞標題。
+#### 更多新聞
 
- ### 更多新聞
-
- 列出所有包含的新聞標題。
+列出所有包含的新聞標題。
 
 ---
 
- ## 10.（中）使用 Selenium 抓取 PTT Gossiping
+### 第 10 題（中）：使用 Selenium 抓取 PTT Gossiping
 
- 網址：
+**網址：** https://www.ptt.cc/bbs/Gossiping/index.html
 
- https://www.ptt.cc/bbs/Gossiping/index.html
+#### 要求
 
- ### 要求
+1. 使用 Selenium 解決網站分級問題。
+2. 列出網站 Title，例如「批踢踢實業坊」。
+3. 列出該網站文章列表。
 
- 1. 使用 Selenium 解決網站分級問題。
-2. 列出網站 Title。
+#### 文章資料
 
- 例如：
+每筆資料包括：
 
-```
-批踢踢實業坊
-```
+* 網址
+* 標題
+* 作者
 
- 3. 列出該網站文章列表。
+#### 範例
 
- ### 文章資料
-
- 每筆資料包括：
-
-```
-網址
-標題
-作者
-```
-
- ### 範例
-
-```
+```text
 /bbs/Gossiping/M.1704514524.A.426.html
 Re: [新聞] 國三車禍台積電副理下車搖燈示警被撞身亡
 topahot9303
@@ -354,211 +257,146 @@ ME13
 
 ---
 
- ## 11.（難）抓取 NBA 商品資料
+### 第 11 題（難）：抓取 NBA 商品資料
 
- 網址：
+**網址：** https://fchart.github.io/ML/nba_items.html
 
- https://fchart.github.io/ML/nba\_items.html
+#### 要求
 
- ### 要求
-
- 1. 列出「所有」NBA 商品資料。
+1. 列出所有 NBA 商品資料。
 2. 每存完一個 CSV 檔，就印出該頁編號。
 
- 例如：
+例如：
 
-```
+```text
 儲存頁面: 1
 儲存頁面: 2
 儲存頁面: 3
 ```
 
- 3. 不同分頁必須儲存成不同 CSV 檔案。
+3. 不同分頁必須儲存成不同 CSV 檔案。
 4. CSV 檔案名稱格式：
 
-```
+```text
 NBA_Products1.csv
 NBA_Products2.csv
 NBA_Products3.csv
 ...
 ```
 
- 5. CSV 開啟時不能出現中文亂碼。
+5. CSV 開啟時不能出現中文亂碼。
 
 ---
 
- ## 12.（難）使用 Selenium 搜尋 Google 的 Steam 遊戲推薦
+### 第 12 題（難）：使用 Selenium 搜尋 Google 的 Steam 遊戲推薦
 
- ### 要求
+#### 要求
 
- 從 Google 搜尋：
+從 Google 搜尋：
 
-```
+```text
 Steam 遊戲推薦
 ```
 
- ### 使用工具
+#### 使用工具
 
- - Selenium
-- WebDriver
+* Selenium
+* WebDriver
 
- ### 資料要求
+#### 資料要求
 
- 1. 列出搜尋結果。
+1. 列出搜尋結果。
 2. 列出搜尋結果的超連結。
 3. 將資料儲存至 CSV 檔案。
 
 ---
 
- ## 13.（中）抓取 momo 搜尋頁
+### 第 13 題（中）：抓取 momo 搜尋頁
 
- 網址：
+**網址：**
 
- https://www.momoshop.com.tw/main/Main.jsp?cid=memb&oid=back2hp&mdiv=1099800000-bt\_0\_150\_01-bt\_0\_150\_01\_e1&ctype=B
+https://www.momoshop.com.tw/main/Main.jsp?cid=memb&oid=back2hp&mdiv=1099800000-bt_0_150_01-bt_0_150_01_e1&ctype=B
 
- ### 要求
+#### 要求
 
- 1. 自動輸入：
-
-```
-nba
-```
-
- 2. 將結果網頁儲存成：
-
-```
-NBA_test.html
-```
+1. 自動輸入 `nba`。
+2. 將結果網頁儲存成 `NBA_test.html`。
 
 ---
 
- ## 14.（難）抓取 NBA 球員薪水
+### 第 14 題（難）：抓取 NBA 球員薪水
 
- 網址：
+**網址：** https://hoopshype.com/salaries/players
 
- https://hoopshype.com/salaries/players
+#### 使用工具
 
- ### 要求
+* Selenium
+* BeautifulSoup
 
- 使用：
+#### 要求一：抓取前 3 位高薪球員的基本資料
 
- - Selenium
-- BeautifulSoup
+包括：
 
- ### 要求一
+* 名字
+* 背號
+* 薪資
 
- 抓取前 3 位高薪球員的基本資料。
+儲存至 `highest.csv`。
 
- 包括：
+#### 要求二：抓取本頁表格所有內容
 
-```
-名字
-背號
-薪資
-```
-
- 儲存至：
-
-```
-highest.csv
-```
-
- ### 要求二
-
- 抓取本頁表格所有內容。
-
- 儲存至：
-
-```
-all_play.csv
-```
+儲存至 `all_play.csv`。
 
 ---
 
- ## 15.（難）使用 Google 搜尋 XPath
+### 第 15 題（難）：使用 Google 搜尋 XPath
 
- 網址：
+**網址：** https://www.google.com
 
- https://www.google.com
+#### 要求
 
- ### 要求
-
- 1. 使用 WebDriver。
-2. 在 Google 搜尋列輸入：
-
-```
-xpath
-```
-
- 3. 使用 XPath 提取搜尋結果。
+1. 使用 WebDriver。
+2. 在 Google 搜尋列輸入 `xpath`。
+3. 使用 XPath 提取搜尋結果。
 4. 滾動滑鼠取得全部資料。
 5. 列印本頁資訊。
 6. 按下「更多結果」。
 7. 取得更多搜尋資訊。
-8. 將結果儲存至：
-
-```
-xpath.csv
-```
+8. 將結果儲存至 `xpath.csv`。
 
 ---
 
- ## 16.（難）抓取 Agoda 搜尋資料
+### 第 16 題（難）：抓取 Agoda 搜尋資料
 
- 網址：
+**網址：** https://www.agoda.com/zh-tw/
 
- https://www.agoda.com/zh-tw/
+#### 要求
 
- ### 要求
+1. 輸入「台中」。
+2. 抓取搜尋結果頁面。
+3. 將資料存入 `agoda_result.csv`。
 
- 1. 輸入：
+#### CSV 內容
 
-```
-台中
-```
+* 飯店名
+* 價格
 
- 2. 抓取搜尋結果頁面。
-3. 將資料存入：
+#### 加分
 
-```
-agoda_result.csv
-```
+使用 Selenium 與 WebDriver：
 
- ### CSV 內容
-
- 包括：
-
-```
-飯店名
-價格
-```
-
- ### 加分
-
- 使用：
-
- - Selenium
-- WebDriver
-
- 自動輸入：
-
-```
-台中
-```
-
- 並將結果加入 CSV。
+1. 自動輸入「台中」。
+2. 將搜尋結果加入 CSV。
 
 ---
 
- ## 17.（難）抓取 GitHub README.md 資料
+### 第 17 題（難）：抓取 GitHub README.md 資料
 
- 網站：
+**網站：** https://github.com/
 
- https://github.com/
+#### 要求
 
- ### 要求
-
- 1. 使用 Selenium。
+1. 使用 Selenium。
 2. 使用 WebDriver。
 3. 自動操作 GitHub。
 4. 搜尋指定 Repository。
@@ -569,67 +407,118 @@ agoda_result.csv
 9. 列出 README.md 資料。
 10. 將抓取結果儲存至 CSV。
 
- ### 建議資料
+#### 建議資料
 
-```
-Repository
-Repository網址
-README.md內容
-```
+* Repository
+* Repository 網址
+* README.md 內容
 
- ### 輸出檔案
+#### 輸出檔案
 
-```
-github_readme.csv
-```
+`github_readme.csv`
 
 ---
 
- # 四、作業報告格式
+## 四、工作分配
 
- ## Word
+### 林冠廷
 
- Word 報告應包含：
+負責第 1、3、5、7 題。
 
- ### 1\. 題目
+| 題號 | 題目               | 輸出檔案                           |
+| -- | ---------------- | ------------------------------ |
+| 1  | 抓取電影資訊           | 依程式設計決定                        |
+| 3  | 政府資料開放平台         | `NHI_EnteroviralInfection.csv` |
+| 5  | 電影票房排行榜          | `Taipei_movies.csv`            |
+| 7  | Google Books API | `pythonbook.csv`               |
 
- 完整列出所選題目的內容與要求。
+### 曾仁宥
 
- ### 2\. 使用工具
+負責第 2、4、6、8 題。
 
- 說明使用：
+| 題號 | 題目       | 輸出檔案           |
+| -- | -------- | -------------- |
+| 2  | 台銀牌告匯率   | `bank.csv`     |
+| 4  | 博客來書籍資料  | `booklist.csv` |
+| 6  | NBA 球員資料 | `players.csv`  |
+| 8  | 近期上映強片電影 | `movies.csv`   |
 
-```
-Python
-Requests
-BeautifulSoup
-Selenium
-WebDriver
-```
+### 吳承誼
 
- ### 3\. 程式碼
+負責第 9、16、17 題。
 
- 貼上完整 Python 程式碼。
+| 題號 | 題目               | 輸出檔案                |
+| -- | ---------------- | ------------------- |
+| 9  | Google 新聞        | 依程式設計決定             |
+| 16 | Agoda 搜尋資料       | `agoda_result.csv`  |
+| 17 | GitHub README.md | `github_readme.csv` |
 
- ### 4\. 程式執行畫面
+### 章惟善
 
- 放入 Terminal 執行結果截圖。
+負責第 10、11、12、13、14、15 題。
 
- ### 5\. 網頁操作截圖
+| 題號 | 題目              | 輸出檔案                                      |
+| -- | --------------- | ----------------------------------------- |
+| 10 | PTT Gossiping   | 依程式設計決定                                   |
+| 11 | NBA 商品資料        | `NBA_Products1.csv`、`NBA_Products2.csv` 等 |
+| 12 | Steam 遊戲推薦      | 依程式設計決定                                   |
+| 13 | momo 搜尋頁        | `NBA_test.html`                           |
+| 14 | NBA 球員薪水        | `highest.csv`、`all_play.csv`              |
+| 15 | Google 搜尋 XPath | `xpath.csv`                               |
 
- 放入爬蟲程式執行時的網頁畫面。
+### 工作分配統計
 
- ### 6\. 輸出結果
-
- 放入 CSV、HTML 或其他輸出檔案的結果截圖。
+| 組員     | 負責題號              |     題數 |
+| ------ | ----------------- | -----: |
+| 林冠廷    | 1、3、5、7           |      4 |
+| 曾仁宥    | 2、4、6、8           |      4 |
+| 吳承誼    | 9、16、17           |      3 |
+| 章惟善    | 10、11、12、13、14、15 |      6 |
+| **總計** | **第 1～17 題**      | **17** |
 
 ---
 
- # 五、PPT 報告
+## 五、作業報告格式
 
- PPT 建議包含：
+### 1. Word 報告
 
- 1. 封面
+Word 報告應包含：
+
+#### （1）題目
+
+完整列出所選題目的內容與要求。
+
+#### （2）使用工具
+
+說明使用的工具與技術：
+
+* Python
+* Requests
+* BeautifulSoup
+* Selenium
+* WebDriver
+
+#### （3）程式碼
+
+貼上完整 Python 程式碼。
+
+#### （4）程式執行畫面
+
+放入 Terminal 或命令提示字元的執行結果截圖。
+
+#### （5）網頁操作截圖
+
+放入爬蟲程式執行時的網頁畫面。
+
+#### （6）輸出結果
+
+放入 CSV、HTML 或其他輸出檔案的結果截圖。
+
+### 2. PPT 報告
+
+PPT 建議包含：
+
+1. 封面
 2. 作業題目
 3. 使用技術
 4. 程式流程
@@ -643,35 +532,35 @@ WebDriver
 
 ---
 
- # 六、使用技術分類
+## 六、使用技術分類
 
- | 題號 | 題目 | 難度 | 主要技術 |
-| --- | --- | --- | --- |
-| 1 | 電影新片 | 易 | Requests / BeautifulSoup |
-| 2 | 台銀牌告 | 中 | Requests / BeautifulSoup |
-| 3 | 政府資料開放平台 | 中 | Requests / BeautifulSoup |
-| 4 | 博客來書籍 | 中 | Requests / BeautifulSoup |
-| 5 | 電影票房 | 難 | Selenium / BeautifulSoup |
-| 6 | NBA 球員 | 難 | Requests / BeautifulSoup |
-| 7 | Google Books API | 難 | Requests |
-| 8 | 近期上映強片 | 難 | Requests / BeautifulSoup |
-| 9 | Google 新聞 | 中 | Selenium |
-| 10 | PTT Gossiping | 中 | Selenium |
-| 11 | NBA 商品 | 難 | Requests / BeautifulSoup |
-| 12 | Steam 遊戲推薦 | 難 | Selenium |
-| 13 | momo 搜尋 | 中 | Selenium |
-| 14 | NBA 球員薪資 | 難 | Selenium + BeautifulSoup |
-| 15 | Google XPath | 難 | Selenium |
-| 16 | Agoda | 難 | Selenium |
-| 17 | GitHub README.md | 難 | Selenium |
+| 題號 | 題目               | 難度 | 主要技術                     |
+| -- | ---------------- | -- | ------------------------ |
+| 1  | 電影新片             | 易  | Requests / BeautifulSoup |
+| 2  | 台銀牌告             | 中  | Requests / BeautifulSoup |
+| 3  | 政府資料開放平台         | 中  | Requests / BeautifulSoup |
+| 4  | 博客來書籍            | 中  | Requests / BeautifulSoup |
+| 5  | 電影票房             | 難  | Selenium / BeautifulSoup |
+| 6  | NBA 球員           | 難  | Requests / BeautifulSoup |
+| 7  | Google Books API | 難  | Requests                 |
+| 8  | 近期上映強片           | 難  | Requests / BeautifulSoup |
+| 9  | Google 新聞        | 中  | Selenium                 |
+| 10 | PTT Gossiping    | 中  | Selenium                 |
+| 11 | NBA 商品           | 難  | Requests / BeautifulSoup |
+| 12 | Steam 遊戲推薦       | 難  | Selenium                 |
+| 13 | momo 搜尋          | 中  | Selenium                 |
+| 14 | NBA 球員薪資         | 難  | Selenium + BeautifulSoup |
+| 15 | Google XPath     | 難  | Selenium                 |
+| 16 | Agoda            | 難  | Selenium                 |
+| 17 | GitHub README.md | 難  | Selenium                 |
 
 ---
 
- # 七、檔案命名整理
+## 七、檔案命名整理
 
- 各題要求的輸出檔案：
+各題要求的輸出檔案如下：
 
-```
+```text
 bank.csv
 NHI_EnteroviralInfection.csv
 booklist.csv
@@ -691,22 +580,65 @@ github_readme.csv
 NBA_test.html
 ```
 
+第 1、9、10、12 題的輸出檔案名稱，請依實際程式設計及老師要求確認。
+
 ---
 
- # 八、完成檢查表
+## 八、完成檢查表
 
- - [ ] 已選擇符合要求的題目
-- [ ] Requests 題目至少 2 題
-- [ ] BeautifulSoup 題目至少 2 題
-- [ ] Selenium 題目至少 2 題
-- [ ] Python 程式可以正常執行
-- [ ] 已完成資料抓取
-- [ ] CSV 可以正常開啟
-- [ ] CSV 中文沒有亂碼
-- [ ] Word 已放入題目
-- [ ] Word 已放入完整程式碼
-- [ ] Word 已放入執行截圖
-- [ ] Word 已放入結果截圖
-- [ ] PPT 已完成報告
-- [ ] PPT 已加入程式執行結果
-- [ ] PPT 已加入爬蟲結果
+### 題目與程式
+
+* [ ] 已選擇並完成負責題目
+* [ ] Requests 題目至少 2 題
+* [ ] BeautifulSoup 題目至少 2 題
+* [ ] Selenium 題目至少 2 題
+* [ ] Python 程式可以正常執行
+* [ ] 已完成資料抓取
+* [ ] 已處理網頁載入或動態內容問題
+
+### 輸出檔案
+
+* [ ] CSV 可以正常開啟
+* [ ] CSV 中文沒有亂碼
+* [ ] CSV 欄位符合題目要求
+* [ ] 已確認輸出資料筆數
+* [ ] HTML 或其他輸出檔案正常
+
+### Word 報告
+
+* [ ] 已放入題目
+* [ ] 已放入使用工具與技術
+* [ ] 已放入完整程式碼
+* [ ] 已放入程式執行截圖
+* [ ] 已放入網頁操作截圖
+* [ ] 已放入輸出結果截圖
+
+### PPT 報告
+
+* [ ] 已完成封面
+* [ ] 已介紹作業題目
+* [ ] 已介紹使用技術
+* [ ] 已說明程式流程
+* [ ] 已展示爬蟲結果
+* [ ] 已展示 CSV 或其他輸出檔案
+* [ ] 已整理問題與解決方法
+* [ ] 已完成心得與結論
+
+---
+
+## 九、注意事項
+
+1. 抓取資料時應遵守網站使用規範及合理存取頻率。
+2. 遇到動態載入網頁時，可依題目要求使用 Selenium。
+3. 儲存 CSV 時，建議使用 `encoding="utf-8-sig"`，避免使用 Excel 開啟時出現中文亂碼。
+4. Google Books API 翻頁時，可使用 `startIndex` 參數取得第二頁資料。
+5. Selenium 執行時，應適當使用等待機制，避免網頁尚未載入完成就開始抓取。
+6. 每題均應保留程式執行結果與輸出檔案，以便製作 Word 及 PPT 報告。
+7. 全組應確認技術題數、作業配分與老師的實際評分標準一致。
+8. 分工表中的題目數量不平均，建議組員協調工作量與報告製作進度。
+
+---
+
+**文件名稱：** Python 網頁爬蟲期中作業
+
+**用途：** 作業要求整理、組員工作分配、程式開發與報告繳交檢查。

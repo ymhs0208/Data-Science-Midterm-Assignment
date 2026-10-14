@@ -445,12 +445,12 @@ https://www.momoshop.com.tw/main/Main.jsp?cid=memb&oid=back2hp&mdiv=1099800000-b
 
 ### 吳承誼
 
-負責第 9、16、17 題。
+負責第 9、10、16、17 題。
 
 | 題號 | 題目               | 輸出檔案                |
 | -- | ---------------- | ------------------- |
-| 9  | Google 新聞        | 依程式設計決定             |
-| 10 | PTT Gossiping   | 依程式設計決定                                   |
+| 9  | Google 新聞        | 依程式設計決定  |
+| 10 | PTT Gossiping   | 依程式設計決定  |
 
 | 16 | Agoda 搜尋資料       | `agoda_result.csv`  |
 | 17 | GitHub README.md | `github_readme.csv` |
@@ -473,7 +473,7 @@ https://www.momoshop.com.tw/main/Main.jsp?cid=memb&oid=back2hp&mdiv=1099800000-b
 | ------ | ----------------- | -----: |
 | 林冠廷    | 1、3、5、7           |      4 |
 | 曾仁宥    | 2、4、6、8           |      4 |
-| 吳承誼    | 10、 9、16、17           |      4 |
+| 吳承誼    |  9、10、16、17           |      4 |
 | 章惟善    |11、12、13、14、15 |      5 |
 | **總計** | **第 1～17 題**      | **17** |
 

@@ -4,7 +4,7 @@ import requests
 
 url = "https://www.googleapis.com/books/v1/volumes"
 filename = "pythonbook.csv"
-api_key = "AIzaSyCyYVEcz5YCNE7TziDZbBNfn5U54k5eqVY"
+api_key = "填入api"
 
 with open(filename, mode="w", newline="", encoding="utf-8-sig") as csv_file:
     writer = csv.writer(csv_file)

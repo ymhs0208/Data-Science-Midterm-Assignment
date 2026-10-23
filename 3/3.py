@@ -1,4 +1,7 @@
 import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  # 讓 CSV 等輸出檔存在此資料夾
+
+import os
 import urllib3
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup

@@ -1,3 +1,6 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  # 讓 CSV 等輸出檔存在此資料夾
+
 import requests                 # 匯入 requests 套件，用於發送 HTTP 網路請求
 from bs4 import BeautifulSoup   # 匯入 BeautifulSoup 套件，用於解析 HTML 網頁結構
 import csv                      # 匯入 csv 套件，用於將抓取到的資料寫入 CSV 檔案

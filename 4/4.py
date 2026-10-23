@@ -1,3 +1,5 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  # 讓 CSV 等輸出檔存在此資料夾
 from playwright.sync_api import sync_playwright  # 匯入 Playwright 同步 API，用來啟動真實瀏覽器繞過防爬蟲與等待動態載入
 from bs4 import BeautifulSoup                    # 匯入 BeautifulSoup 套件，用來解析 HTML 網頁原始碼
 import csv                                       # 匯入 csv 套件，用來將整理好的資料寫入 CSV 檔案

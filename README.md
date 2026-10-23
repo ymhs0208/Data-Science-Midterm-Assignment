@@ -642,3 +642,12 @@ NBA_test.html
 **文件名稱：** Python 網頁爬蟲期中作業
 
 **用途：** 作業要求整理、組員工作分配、程式開發與報告繳交檢查。
+
+---
+
+## 環境安裝
+
+```bash
+pip install -r requirements.txt
+playwright install chromium   # 第 4 題使用 Playwright，需額外下載瀏覽器核心
+```

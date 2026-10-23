@@ -17,6 +17,9 @@
 # 流程：開八卦版 → 通過 18 歲分級 → 等文章列表 → 抓資料 → 印出 → 存 CSV
 # ============================================================
 
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  # 讓 CSV 等輸出檔存在此資料夾
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By                       # 指定用什麼方式找網頁上的東西
 from selenium.webdriver.chrome.options import Options

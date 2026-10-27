@@ -1,10 +1,22 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  # 讓 CSV 等輸出檔存在此資料夾
+
 import csv
 import time
 import requests
+from dotenv import load_dotenv  # 用來讀取 .env 檔的工具
+
+# 把同資料夾裡 .env 的內容載入進來，這樣 API Key 就不用寫死在程式裡
+load_dotenv()
 
 url = "https://www.googleapis.com/books/v1/volumes"
 filename = "pythonbook.csv"
-api_key = "填入api"
+
+# 從 .env 取出名叫 API_KEY 的那一行的值
+api_key = os.getenv("API_KEY")
+if not api_key:
+    # 如果沒讀到，直接停下來並提醒，免得送出沒有金鑰的請求
+    raise SystemExit("找不到 API_KEY，請確認 .env 裡有寫 API_KEY=你的金鑰")
 
 with open(filename, mode="w", newline="", encoding="utf-8-sig") as csv_file:
     writer = csv.writer(csv_file)

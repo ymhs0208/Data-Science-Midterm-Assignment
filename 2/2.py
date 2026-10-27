@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -37,5 +39,6 @@ for row in rows:
   })
 
 df = pd.DataFrame(data)
-df.to_csv("bank.csv", index=False, encoding="utf-8-sig")
+csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bank.csv")
+df.to_csv(csv_path, index=False, encoding="utf-8-sig")
 print("bank.csv 下載完成！")

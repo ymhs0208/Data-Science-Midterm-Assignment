@@ -1,3 +1,6 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  # 讓 CSV 等輸出檔存在此資料夾
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
@@ -322,7 +325,8 @@ try:
     print("CSV 使用 UTF-8-SIG 編碼")
 
 
-    input("\n按 Enter 關閉瀏覽器...")
+    print("\n1 秒後自動關閉瀏覽器...")
+    time.sleep(1)
 
 
 finally:

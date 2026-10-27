@@ -1,3 +1,6 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  # 讓 CSV 等輸出檔存在此資料夾
+
 import csv
 import time
 from selenium import webdriver

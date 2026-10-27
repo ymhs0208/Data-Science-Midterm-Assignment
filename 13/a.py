@@ -5,6 +5,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import os
+
+# 輸出檔案放在此腳本所在的資料夾
+OUTPUT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "NBA_test.html")
 
 
 # ==============================
@@ -111,16 +115,15 @@ try:
 
         # 先把目前頁面存下來方便檢查
         with open(
-            "NBA_test.html",
+            OUTPUT_PATH,
             "w",
             encoding="utf-8-sig"
         ) as f:
 
             f.write(driver.page_source)
 
-        print("目前頁面已儲存成 NBA_test.html")
+        print("目前頁面已儲存成", OUTPUT_PATH)
 
-        input("請按 Enter 關閉瀏覽器...")
 
     else:
 
@@ -161,7 +164,7 @@ try:
         html = driver.page_source
 
         with open(
-            "NBA_test.html",
+            OUTPUT_PATH,
             "w",
             encoding="utf-8-sig"
         ) as f:
@@ -171,17 +174,13 @@ try:
         print()
         print("=" * 60)
         print("成功！")
-        print("檔案：NBA_test.html")
+        print("檔案：", OUTPUT_PATH)
         print("編碼：UTF-8-SIG")
         print("HTML 字數：", len(html))
         print("=" * 60)
 
-        # 保留瀏覽器讓你確認
-        input("請確認瀏覽器畫面，完成後按 Enter 關閉...")
-
+        
 
 finally:
-
     driver.quit()
-
-    print("Chrome 已關閉")
+    print("Chrome 已自動關閉")

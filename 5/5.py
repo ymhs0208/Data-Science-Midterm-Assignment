@@ -2,6 +2,7 @@ import os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))  # 讓 CSV 等輸出檔存在此資料夾
 
 import csv  # Python 內建函式庫：用於讀寫 CSV 檔案
+import unicodedata  # 內建：判斷全形/半形字元寬度，用於中英文對齊
 from urllib.parse import (  # 用於將相對路徑轉換為完整的絕對 URL
     urljoin,
 )
@@ -22,18 +23,64 @@ headers = {
 session = requests.Session()
 session.headers.update(headers)
 
+
+def get_soup(url):
+  """發送 GET 請求並回傳解析後的 BeautifulSoup 物件。"""
+  res = session.get(url)
+  res.encoding = 'utf-8'  # 確保中文字元解析正常不亂碼
+  return BeautifulSoup(res.text, 'html.parser')
+
+
+def clean(text):
+  """將多餘的換行、空白壓成單一空白。"""
+  return ' '.join(text.split())
+
+
+def display_width(text):
+  """計算字串在終端機的顯示寬度（全形字佔 2 格）。"""
+  return sum(2 if unicodedata.east_asian_width(c) in 'WF' else 1 for c in text)
+
+
+def pad(text, width, align='left'):
+  """依顯示寬度補空白，讓中英文混排時欄位仍然對齊。"""
+  space = ' ' * max(width - display_width(text), 0)
+  return space + text if align == 'right' else text + space
+
+
+def fit(text, width):
+  """片名過長時依顯示寬度截斷並加上省略號。"""
+  if display_width(text) <= width:
+    return text
+  out = ''
+  for c in text:
+    if display_width(out + c) > width - 1:
+      break
+    out += c
+  return out + '…'
+
+
+def print_table(rows, title_width=52):
+  """格式化印出排行榜：排名 / 片名 / 本週票房 / 累計票房（單位：萬新台幣）。"""
+  line = '-' * (6 + title_width + 2 + 12 + 2 + 12)
+  print(
+      pad('排名', 6) + pad('片名', title_width + 2)
+      + pad('本週票房', 12, 'right') + '  ' + pad('累計票房', 12, 'right')
+  )
+  print(line)
+  for m in rows:
+    print(
+        pad(m['排名'], 6) + pad(fit(m['片名'], title_width), title_width + 2)
+        + pad(m['本週票房'], 12, 'right') + '  '
+        + pad(m['累計票房'], 12, 'right')
+    )
+
+
 # ==========================================
 # 步驟 0：從題目指定網址出發
 # ==========================================
 start_url = 'http://www.atmovies.com.tw/movie/new/'
-print(f'正在訪問起始網址: {start_url}...')
-
-# 向起始網址發送 GET 請求
-res_start = session.get(start_url)
-# 設定文字編碼為 utf-8，確保中文字元解析正常不亂碼
-res_start.encoding = 'utf-8'
-# 使用 BeautifulSoup 解析 HTML 網頁結構
-soup_start = BeautifulSoup(res_start.text, 'html.parser')
+print(f'正在訪問起始網址: {start_url}')
+soup_start = get_soup(start_url)
 
 # ==========================================
 # 要求 1：在選單中找出「票房排行榜」的超連結
@@ -54,73 +101,79 @@ if not boxoffice_link:
 print(f'找到「票房排行榜」連結: {boxoffice_link}')
 
 # ==========================================
-# 要求 2：訪問票房排行榜頁面，並尋找「台北週末」區塊的 more 連結
+# 要求 2：票房排行榜首頁的「台北週末票房」前 5 名（排名、片名、票房）
 # ==========================================
-res_boxoffice = session.get(boxoffice_link)
-res_boxoffice.encoding = 'utf-8'
-soup_boxoffice = BeautifulSoup(res_boxoffice.text, 'html.parser')
+soup_boxoffice = get_soup(boxoffice_link)
 
-more_link = None
-# 遍歷票房排行榜首頁的所有超連結
+more_a = None
+# 尋找文字為「more」且網址路徑中含有「twweekend」（代表台北週末排行榜）的連結
 for a in soup_boxoffice.find_all('a', href=True):
-  # 尋找文字為「more」且網址路徑中含有「twweekend」（代表台北週末排行榜）的連結
   if 'more' in a.get_text(strip=True).lower() and 'twweekend' in a['href']:
-    more_link = urljoin(boxoffice_link, a['href'])
+    more_a = a
     break
 
 # 防呆機制：若未抓到 more 連結，帶入完整的台北週末排行榜網址
-if not more_link:
+if more_a:
+  more_link = urljoin(boxoffice_link, more_a['href'])
+else:
   more_link = 'https://app2.atmovies.com.tw/boxoffice/twweekend/'
 
 print(f'找到 more 連結: {more_link}')
 
-# ==========================================
-# 要求 3：進入 more 完整榜單頁面，擷取前 20 筆資料
-# ==========================================
-res_more = session.get(more_link)
-res_more.encoding = 'utf-8'
-soup_more = BeautifulSoup(res_more.text, 'html.parser')
+top5 = []
+if more_a:
+  # more 連結所在的表格就是台北排行榜；原始 HTML 的 <TR> 沒有關閉，
+  # 因此不依賴列，改為依序讀取該表格內所有 <td>，每 3 格為一部電影
+  cells = [clean(td.get_text()) for td in more_a.find_parent('table').find_all('td')]
+  for i, cell in enumerate(cells):
+    if cell.isdigit() and i + 2 < len(cells):
+      top5.append({
+          '排名': cell,
+          '片名': cells[i + 1],
+          '本週票房': cells[i + 2].replace('萬台幣', '').lstrip('$'),
+      })
 
+print('\n【台北週末票房排行榜（首頁前 5 名，單位：萬新台幣）】')
+print(f"{pad('排名', 6)}{pad('片名', 54)}{pad('本週票房', 12, 'right')}")
+print('-' * 72)
+for m in top5:
+  print(
+      f"{pad(m['排名'], 6)}{pad(fit(m['片名'], 52), 54)}"
+      f"{pad(m['本週票房'], 12, 'right')}"
+  )
+
+# ==========================================
+# 要求 3：按下 more，進入完整榜單頁面，擷取前 20 筆資料
+# ==========================================
+soup_more = get_soup(more_link)
+
+# 每部電影在 HTML 中拆成兩段（<TR> 未關閉，無法用列判斷）：
+#   第 1 段：<td><b>排名</b></td><td>片名</td>
+#   第 2 段：<td>&nbsp;</td><td>佔比%</td><td>本週票房</td><td>累計票房</td>...
+# 所以改為依序掃描 <td>：遇到「<b>數字</b>」就往後取對應欄位。
+tds = soup_more.find_all('td')
 movies_data = []  # 建立空清單，用於存放爬取到的電影資料字典
 
-# 尋找頁面中所有的表格列 <tr> 標籤
-for tr in soup_more.find_all('tr'):
-  # 找出該列中所有的欄位標籤（包含 td 與 th）
-  tds = tr.find_all(['td', 'th'])
-  # 擷取每個欄位的文字內容並去除頭尾空白字元
-  row = [td.get_text(strip=True) for td in tds]
+for i, td in enumerate(tds):
+  rank = clean(td.get_text())
+  # 排名欄的特徵：內含 <b> 標籤且文字為純數字
+  if td.find('b') is None or not rank.isdigit() or i + 5 >= len(tds):
+    continue
 
-  # 判斷是否為有效資料列：第一欄存在且純數字（代表排行 1, 2, 3...）
-  if row and row[0].isdigit():
-    rank = row[0]  # 第一欄：排名
-    title = row[1]  # 第二欄：片名
-    this_week = row[2]  # 第三欄：本週票房
-    total = row[3]  # 第四欄：累計票房
+  movies_data.append({
+      '排名': rank,
+      '片名': clean(tds[i + 1].get_text()),
+      # tds[i + 2] 是空白欄、tds[i + 3] 是票房佔比（%），略過
+      '本週票房': clean(tds[i + 4].get_text()).lstrip('$'),
+      '累計票房': clean(tds[i + 5].get_text()).lstrip('$'),
+  })
 
-    # 將抓取到的資料組成字典加入清單
-    movies_data.append({
-        '排名': rank,
-        '片名': title,
-        '本週票房': this_week,
-        '累計票房': total,
-    })
+  # 符合題目要求：抓滿前 20 筆就中斷迴圈停止抓取
+  if len(movies_data) == 20:
+    break
 
-    # 符合題目要求：抓滿前 20 筆就中斷迴圈停止抓取
-    if len(movies_data) == 20:
-      break
-
-# ==========================================
-# 終端機格式化印出預覽（對齊欄位）
-# ==========================================
-print('\n【台北週末票房排行榜 TOP 20】')
-print(f"{'排名':<5} {'片名':<35} {'本週票房':<12} {'累計票房':<12}")
-print('-' * 70)
-for m in movies_data:
-  # 限制片名預覽長度最長顯示 30 字，避免長片名導致排版錯位
-  print(
-      f"{m['排名']:<5} {m['片名'][:30]:<35} {m['本週票房']:<12}"
-      f" {m['累計票房']:<12}"
-  )
+print('\n【台北週末票房排行榜 TOP 20（單位：萬新台幣）】')
+print_table(movies_data)
 
 # ==========================================
 # 將資料寫入 CSV 檔案

@@ -17,6 +17,9 @@
 # 流程：開八卦版 → 通過 18 歲分級 → 等文章列表 → 抓資料 → 印出 → 存 CSV
 # ============================================================
 
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))  # 讓 CSV 等輸出檔存在此資料夾
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By                       # 指定用什麼方式找網頁上的東西
 from selenium.webdriver.chrome.options import Options
@@ -75,6 +78,10 @@ try:
 
     print()
 
+    # 記錄「最後是用哪個方法通過 18 歲分級」，最後會印在終端機
+    # 預設是沒被擋（例如瀏覽器本來就有 over18 cookie）
+    method = "未觸發分級頁（直接進入，不需處理）"
+
 
     # ========================================================
     # 2. 處理 18 歲分級問題（方法一：點按鈕）
@@ -102,6 +109,7 @@ try:
 
             print("找到 18 歲確認按鈕")
             button.click()   # 點下去，PTT 就會發給瀏覽器 over18=1 的 cookie
+            method = "方法一：Selenium 點擊「我已滿18歲」按鈕（主要找法）"
 
         except TimeoutException:
 
@@ -126,6 +134,7 @@ try:
                         print("找到按鈕：", element.text)
                         element.click()
                         clicked = True
+                        method = "方法一：Selenium 點擊按鈕（備用文字找法）"
                         break
 
                 except Exception:
@@ -161,6 +170,7 @@ try:
             })
 
             print("已設定 over18=1")
+            method = "方法二：直接注入 over18=1 cookie（按鈕方式失敗後改用）"
 
             # 塞完 cookie 要「重新載入」八卦版，PTT 這次才會看到通行證、放我們進去
             driver.get(URL)
@@ -180,6 +190,11 @@ try:
     print()
     print("目前網址：")
     print(driver.current_url)
+
+    print()
+
+    # 印出這次是用哪個方法通過 18 歲分級
+    print("通過 18 歲分級的方式：", method)
 
     print()
 
